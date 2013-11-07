@@ -131,75 +131,6 @@ COMPILER_SRC_FILES :=  \
     src/google/protobuf/stubs/strutil.cc \
     src/google/protobuf/stubs/substitute.cc
 
-# Java nano library (for device-side users)
-# =======================================================
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := libprotobuf-java-2.3.0-nano
-LOCAL_MODULE_TAGS := optional
-LOCAL_SDK_VERSION := 8
-
-LOCAL_SRC_FILES := $(call all-java-files-under, java/src/main/java/com/google/protobuf/nano)
-
-include $(BUILD_STATIC_JAVA_LIBRARY)
-
-# Java nano library (for host-side users)
-# =======================================================
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := host-libprotobuf-java-2.3.0-nano
-LOCAL_MODULE_TAGS := optional
-
-LOCAL_SRC_FILES := $(call all-java-files-under, java/src/main/java/com/google/protobuf/nano)
-
-include $(BUILD_HOST_JAVA_LIBRARY)
-
-# Java micro library (for device-side users)
-# =======================================================
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := libprotobuf-java-2.3.0-micro
-LOCAL_MODULE_TAGS := optional
-LOCAL_SDK_VERSION := 8
-
-LOCAL_SRC_FILES := $(call all-java-files-under, java/src/main/java/com/google/protobuf/micro)
-
-include $(BUILD_STATIC_JAVA_LIBRARY)
-
-# Java micro library (for host-side users)
-# =======================================================
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := host-libprotobuf-java-2.3.0-micro
-LOCAL_MODULE_TAGS := optional
-
-LOCAL_SRC_FILES := $(call all-java-files-under, java/src/main/java/com/google/protobuf/micro)
-
-include $(BUILD_HOST_JAVA_LIBRARY)
-
-# Java lite library (for device-side users)
-# =======================================================
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := libprotobuf-java-2.3.0-lite
-LOCAL_MODULE_TAGS := optional
-LOCAL_SDK_VERSION := 8
-
-LOCAL_SRC_FILES := $(JAVA_LITE_SRC_FILES)
-
-include $(BUILD_STATIC_JAVA_LIBRARY)
-
-# Java lite library (for host-side users)
-# =======================================================
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := host-libprotobuf-java-2.3.0-lite
-LOCAL_MODULE_TAGS := optional
-
-LOCAL_SRC_FILES := $(JAVA_LITE_SRC_FILES)
-
-include $(BUILD_HOST_JAVA_LIBRARY)
-
 # C++ lite library
 # =======================================================
 include $(CLEAR_VARS)
@@ -350,26 +281,3 @@ LOCAL_STATIC_LIBRARIES += libz
 LOCAL_LDLIBS := -lpthread
 
 include $(BUILD_HOST_EXECUTABLE)
-
-# To test java proto params build rules.
-# =======================================================
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := aprotoc-test-nano-params
-LOCAL_MODULE_TAGS := tests
-LOCAL_SDK_VERSION := current
-
-LOCAL_PROTOC_OPTIMIZE_TYPE := nano
-
-LOCAL_SRC_FILES := \
-        src/google/protobuf/unittest_import_nano.proto \
-        src/google/protobuf/unittest_simple_nano.proto \
-        src/google/protobuf/unittest_stringutf8_nano.proto \
-        src/google/protobuf/unittest_recursive_nano.proto
-
-
-LOCAL_PROTOC_FLAGS := --proto_path=$(LOCAL_PATH)/src
-
-LOCAL_PROTO_JAVA_OUTPUT_PARAMS := java_package=$(LOCAL_PATH)/src/google/protobuf/unittest_import_nano.proto|com.google.protobuf.nano,java_outer_classname=$(LOCAL_PATH)/src/google/protobuf/unittest_import_nano.proto|UnittestImportNano
-
-include $(BUILD_STATIC_JAVA_LIBRARY)
